@@ -10,6 +10,12 @@ contract Token {
 
     constructor() public {
         totalSupply = 1000000 * (10 ** decimals);
+        balanceOf[msg.sender] = totalSupply;
     }
+
+    // Track balance
+    mapping(address => uint256) public balanceOf;
+
+
 }
 

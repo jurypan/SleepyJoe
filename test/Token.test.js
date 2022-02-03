@@ -5,7 +5,7 @@ require('chai')
   .use(require('chai-as-promised'))
   .should();
 
-contract('Token', ([deployer, receiver, exchange]) => {
+contract('Token', ([deployer, sender, receiver, exchange]) => {
 
     const name = 'Sleepy Joe';
     const symbol = 'JPX';
@@ -35,6 +35,11 @@ contract('Token', ([deployer, receiver, exchange]) => {
 
         it('tracks the total supply', async () => {
             const result = await token.totalSupply();
+            result.toString().should.equal(totalSupply);
+        });
+
+        it('assign the total supply to the deployer', async () => {
+            const result = await token.balanceOf(deployer);
             result.toString().should.equal(totalSupply);
         });
     });
