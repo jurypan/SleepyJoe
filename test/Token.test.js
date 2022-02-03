@@ -1,3 +1,4 @@
+import { tokens } from './helpers';
 
 const Token = artifacts.require('./Token');
 
@@ -5,12 +6,14 @@ require('chai')
   .use(require('chai-as-promised'))
   .should();
 
+
+
 contract('Token', ([deployer, sender, receiver]) => {
 
     const name = 'Sleepy Joe';
     const symbol = 'JPX';
     const decimals = '18';
-    const totalSupply = '1000000000000000000000000';
+    const totalSupply = tokens(1000000).toString();
     let token = null;
 
     beforeEach(async () => {
@@ -55,7 +58,7 @@ contract('Token', ([deployer, sender, receiver]) => {
             console.log("receiver balance before transfer", balanceOf.toString());
 
             // Transfer
-            await token.transfer(receiver, '1000000000000000000000000', {from: deployer });
+            await token.transfer(receiver, tokens(100000), {from: deployer });
 
             // After transfer
             balanceOf = await token.balanceOf(deployer);
